@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Customize Your Product | Rich Society</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --coffee-brown: rgba(111, 78, 55, 0.88);   /* 12% transparency */
+      --coffee-brown-solid: #6f4e37;
+      --cream: rgba(245, 236, 220, 0.88);        /* 12% transparency */
+      --cream-solid: #f5ecdc;
+      --accent: #ffd700;
+      --accent-dark: #bfa600;
+      --text-main: #3e2c23;
+      --text-light: #fff;
+      --shadow: 0 2px 12px rgba(111, 78, 55, 0.18);
+    }
+    body {
+      background: linear-gradient(135deg, var(--coffee-brown) 0%, var(--cream) 100%);
+      color: var(--text-main);
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      margin: 0;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(245,236,220,0.85);
+      border-radius: 18px;
+      padding: 32px 20px 24px 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: center;
+      align-items: flex-start;
+      border: 2px solid var(--coffee-brown-solid);
+    }
+    .custom-form-section {
+      flex: 1 1 320px;
+      min-width: 300px;
+      max-width: 400px;
+      background: rgba(111,78,55,0.12);
+      border-radius: 12px;
+      padding: 24px 18px 18px 18px;
+      box-shadow: 0 2px 8px rgba(111,78,55,0.10);
+      border: 1.5px solid var(--coffee-brown-solid);
+    }
+    .preview-section {
+      flex: 1 1 320px;
+      min-width: 300px;
+      max-width: 400px;
+      background: rgba(111,78,55,0.12);
+      border-radius: 12px;
+      padding: 18px 10px 24px 10px;
+      box-shadow: 0 2px 8px rgba(111,78,55,0.10);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 1.5px solid var(--coffee-brown-solid);
+    }
+    h2 {
+      color: var(--coffee-brown-solid);
+      margin-bottom: 18px;
+      letter-spacing: 1px;
+    }
+    label {
+      display: block;
+      margin: 18px 0 8px 0;
+      color: var(--coffee-brown-solid);
+      font-size: 1.1rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    select, input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1.5px solid var(--coffee-brown-solid);
+      background: var(--cream);
+      color: var(--text-main);
+      font-size: 1rem;
+      margin-bottom: 10px;
+      font-family: 'Orbitron', sans-serif;
+      transition: border 0.2s;
+    }
+    select:focus, input[type="text"]:focus, input[type="number"]:focus {
+      border: 1.5px solid var(--accent);
+      outline: none;
+    }
+    .color-options {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-start;
+      margin-bottom: 16px;
+    }
+    .color-swatch {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid var(--coffee-brown-solid);
+      cursor: pointer;
+      display: inline-block;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+    .color-swatch.selected {
+      border: 2.5px solid var(--accent);
+      box-shadow: 0 0 0 2px var(--accent-dark);
+    }
+    button {
+      background: var(--coffee-brown-solid);
+      color: var(--cream-solid);
+      border: none;
+      border-radius: 6px;
+      padding: 12px 28px;
+      font-size: 1.1rem;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 18px;
+      transition: background 0.2s, color 0.2s;
+      box-shadow: 0 2px 8px rgba(111,78,55,0.10);
+    }
+    button:hover {
+      background: var(--accent);
+      color: var(--text-main);
+    }
+    .summary {
+      background: var(--coffee-brown);
+      border-radius: 8px;
+      padding: 18px;
+      margin-top: 22px;
+      color: var(--cream-solid);
+      font-size: 1.1rem;
+      border: 1.5px solid var(--accent);
+      box-shadow: 0 2px 8px rgba(111,78,55,0.10);
+    }
+    a.back-link {
+      display: inline-block;
+      margin-top: 18px;
+      color: var(--coffee-brown-solid);
+      text-decoration: none;
+      font-size: 1rem;
+      border-bottom: 1px dashed var(--coffee-brown-solid);
+      transition: color 0.2s;
+    }
+    a.back-link:hover {
+      color: var(--accent);
+    }
+    .preview-title {
+      color: var(--accent);
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+    .preview-3d-container {
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 12px auto;
+      perspective: 800px;
+      position: relative;
+      user-select: none;
+    }
+    .preview-3d {
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.2s;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .preview-img {
+      width: 180px;
+      height: 180px;
+      border-radius: 12px;
+      object-fit: contain;
+      background: var(--cream);
+      box-shadow: 0 2px 8px rgba(111,78,55,0.13);
+      border: 2.5px solid var(--coffee-brown-solid);
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      transition: background 0.2s, border 0.2s;
+    }
+    .preview-custom-text {
+      position: absolute;
+      bottom: 18px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      color: var(--accent);
+      font-size: 1.1rem;
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 2px 8px #000, 0 0 2px var(--accent);
+      pointer-events: none;
+      letter-spacing: 1px;
+    }
+    .preview-details {
+      color: var(--coffee-brown-solid);
+      font-size: 1rem;
+      margin-top: 10px;
+      text-align: left;
+      width: 100%;
+      background: rgba(245,236,220,0.7);
+      border-radius: 6px;
+      padding: 10px 8px;
+      border: 1px solid var(--coffee-brown-solid);
+      box-shadow: 0 1px 4px rgba(111,78,55,0.08);
+    }
+    .rotate-hint {
+      color: var(--coffee-brown-solid);
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      opacity: 0.8;
+    }
+    @media (max-width: 900px) {
+      .container { flex-direction: column; align-items: stretch; }
+      .custom-form-section, .preview-section { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="custom-form-section">
+      <h2>Customize Your Product</h2>
+      <form id="customForm">
+        <label for="productType">Product</label>
+        <select id="productType" name="productType" required>
+          <option value="">Select product</option>
+          <option value="classic-tee">Classic Tee</option>
+          <option value="urban-hoodie">Urban Hoodie</option>
+          <option value="signature-cap">Signature Cap</option>
+          <option value="minimalist-tote">Minimalist Tote</option>
+          <option value="street-socks">Street Socks</option>
+          <option value="logo-shorts">Logo Shorts</option>
+          <option value="varsity-jacket">Varsity Jacket</option>
+        </select>
+
+        <label>Color</label>
+        <div class="color-options" id="colorOptions">
+          <div class="color-swatch" data-color="Coffee Brown" style="background:rgba(111,78,55,0.88);"></div>
+          <div class="color-swatch" data-color="Cream" style="background:rgba(245,236,220,0.88);"></div>
+          <div class="color-swatch" data-color="Gold" style="background:#ffd700;"></div>
+          <div class="color-swatch" data-color="Red" style="background:#d32f2f;"></div>
+          <div class="color-swatch" data-color="Blue" style="background:#1976d2;"></div>
+        </div>
+        <input type="hidden" name="color" id="colorInput" required>
+
+        <label for="size">Size</label>
+        <select id="size" name="size" required>
+          <option value="">Select size</option>
+          <option value="XS">XS</option>
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
+          <option value="XXL">XXL</option>
+        </select>
+
+        <label for="customText">Custom Text (optional)</label>
+        <input type="text" id="customText" name="customText" maxlength="20" placeholder="e.g. Your Name">
+
+        <button type="submit">Place Order</button>
+      </form>
+      <div class="summary" id="orderSummary" style="display:none;"></div>
+      <a href="index.html" class="back-link">&larr; Back to Shop</a>
+    </div>
+    <div class="preview-section">
+      <div class="preview-title">Live Preview</div>
+      <div class="rotate-hint">Drag to rotate the product</div>
+      <div class="preview-3d-container" id="preview3dContainer">
+        <div class="preview-3d" id="preview3d" style="transform: rotateY(0deg);">
+          <img id="previewImg" class="preview-img" src="1.jpg" alt="Product Preview">
+          <div class="preview-custom-text" id="previewCustomText"></div>
+        </div>
+      </div>
+      <div class="preview-details" id="previewDetails"></div>
+    </div>
+  </div>
+  <script>
+    // Product images for preview (front/back simulation)
+    const productImages = {
+      "classic-tee": ["1.jpg", "1b.jpg"],
+      "urban-hoodie": ["2.jpg", "2b.jpg"],
+      "signature-cap": ["3.JPG", "3b.jpg"],
+      "minimalist-tote": ["4.jpg", "4.jpg"],
+      "street-socks": ["5.jpg", "5.jpg"],
+      "logo-shorts": ["6.jpg", "6.jpg"],
+      "varsity-jacket": ["7.jpg", "7.jpg"]
+    };
+
+    // Product names for display
+    const productNames = {
+      "classic-tee": "Classic Tee",
+      "urban-hoodie": "Urban Hoodie",
+      "signature-cap": "Signature Cap",
+      "minimalist-tote": "Minimalist Tote",
+      "street-socks": "Street Socks",
+      "logo-shorts": "Logo Shorts",
+      "varsity-jacket": "Varsity Jacket"
+    };
+
+    // Pre-select product if passed in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const prod = urlParams.get('product');
+    if (prod) {
+      document.getElementById('productType').value = prod;
+    }
+
+    // Color swatch selection
+    const colorOptions = document.getElementById('colorOptions');
+    const colorInput = document.getElementById('colorInput');
+    colorOptions.addEventListener('click', function(e) {
+      if (e.target.classList.contains('color-swatch')) {
+        document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+        e.target.classList.add('selected');
+        colorInput.value = e.target.getAttribute('data-color');
+        updatePreview();
+      }
+    });
+
+    // Update preview on any change
+    document.getElementById('productType').onchange = updatePreview;
+    document.getElementById('size').onchange = updatePreview;
+    document.getElementById('customText').oninput = updatePreview;
+
+    // Live preview logic
+    function updatePreview() {
+      const product = document.getElementById('productType').value;
+      const color = colorInput.value;
+      const size = document.getElementById('size').value;
+      const customText = document.getElementById('customText').value;
+      const previewImg = document.getElementById('previewImg');
+      const previewCustomText = document.getElementById('previewCustomText');
+      const previewDetails = document.getElementById('previewDetails');
+
+      // Set image (front view)
+      if (product && productImages[product]) {
+        previewImg.src = productImages[product][0];
+        previewImg.style.display = '';
+      } else {
+        previewImg.src = '';
+        previewImg.style.display = 'none';
+      }
+
+      // Simulate color overlay (for demo, just change border color/background)
+      if (color) {
+        if (color === "Cream") {
+          previewImg.style.background = "rgba(245,236,220,0.88)";
+          previewImg.style.borderColor = "#f5ecdc";
+        } else if (color === "Coffee Brown") {
+          previewImg.style.background = "rgba(111,78,55,0.88)";
+          previewImg.style.borderColor = "#6f4e37";
+        } else if (color === "Gold") {
+          previewImg.style.background = "#ffd700";
+          previewImg.style.borderColor = "#ffd700";
+        } else if (color === "Red") {
+          previewImg.style.background = "#d32f2f";
+          previewImg.style.borderColor = "#d32f2f";
+        } else if (color === "Blue") {
+          previewImg.style.background = "#1976d2";
+          previewImg.style.borderColor = "#1976d2";
+        } else {
+          previewImg.style.background = "var(--cream)";
+          previewImg.style.borderColor = "#333";
+        }
+      } else {
+        previewImg.style.background = "var(--cream)";
+        previewImg.style.borderColor = "#333";
+      }
+
+      // Custom text
+      previewCustomText.textContent = customText;
+
+      // Details
+      let details = "";
+      if (product) details += `<b>Product:</b> ${productNames[product]}<br>`;
+      if (color) details += `<b>Color:</b> ${color}<br>`;
+      if (size) details += `<b>Size:</b> ${size}<br>`;
+      if (customText) details += `<b>Custom Text:</b> ${customText}<br>`;
+      previewDetails.innerHTML = details;
+    }
+
+    // 3D Rotation logic
+    let isDragging = false, startX = 0, rotationY = 0;
+    const preview3d = document.getElementById('preview3d');
+    const previewImg = document.getElementById('previewImg');
+    const productType = document.getElementById('productType');
+
+    function set3dRotation(deg) {
+      preview3d.style.transform = `rotateY(${deg}deg)`;
+      // Show front or back image based on rotation
+      const product = productType.value;
+      if (product && productImages[product]) {
+        if (Math.abs(deg % 360) > 90 && Math.abs(deg % 360) < 270) {
+          previewImg.src = productImages[product][1]; // back
+        } else {
+          previewImg.src = productImages[product][0]; // front
+        }
+      }
+    }
+
+    document.getElementById('preview3dContainer').addEventListener('mousedown', function(e) {
+      isDragging = true;
+      startX = e.clientX;
+    });
+    window.addEventListener('mousemove', function(e) {
+      if (!isDragging) return;
+      const dx = e.clientX - startX;
+      rotationY += dx * 0.8;
+      set3dRotation(rotationY);
+      startX = e.clientX;
+    });
+    window.addEventListener('mouseup', function() {
+      isDragging = false;
+    });
+
+    // Touch support for mobile
+    document.getElementById('preview3dContainer').addEventListener('touchstart', function(e) {
+      isDragging = true;
+      startX = e.touches[0].clientX;
+    });
+    window.addEventListener('touchmove', function(e) {
+      if (!isDragging) return;
+      const dx = e.touches[0].clientX - startX;
+      rotationY += dx * 0.8;
+      set3dRotation(rotationY);
+      startX = e.touches[0].clientX;
+    });
+    window.addEventListener('touchend', function() {
+      isDragging = false;
+    });
+
+    // Form submission
+    document.getElementById('customForm').onsubmit = function(e) {
+      e.preventDefault();
+      if (!colorInput.value) {
+        alert('Please select a color.');
+        return;
+      }
+      const product = productType.selectedOptions[0].text;
+      const color = colorInput.value;
+      const size = document.getElementById('size').value;
+      const customText = document.getElementById('customText').value;
+      document.getElementById('orderSummary').style.display = 'block';
+      document.getElementById('orderSummary').innerHTML = `
+        <b>Order Summary:</b><br>
+        Product: ${product}<br>
+        Color: ${color}<br>
+        Size: ${size}<br>
+        ${customText ? "Custom Text: " + customText + "<br>" : ""}
+        <br>Thank you for customizing your order!<br>
+        <span style="color:#3e2c23;font-size:0.95rem;">(This is a demo. For real orders, please contact us on Instagram or via email.)</span>
+      `;
+      this.reset();
+      document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+      colorInput.value = '';
+      updatePreview();
+    };
+
+    // Initial preview
+    updatePreview();
+  </script>
+</body>
+</html>

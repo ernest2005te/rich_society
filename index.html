@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rich Society | Brand </title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --coffee-brown: rgba(111, 78, 55, 0.88);   /* 12% transparency */
+      --coffee-brown-solid: #6f4e37;
+      --cream: rgba(245, 236, 220, 0.88);        /* 12% transparency */
+      --cream-solid: #f5ecdc;
+      --accent: #ffd700;
+      --accent-dark: #bfa600;
+      --text-main: #3e2c23;
+      --text-light: #fff;
+      --shadow: 0 2px 12px rgba(111, 78, 55, 0.18);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(135deg, var(--coffee-brown) 0%, var(--cream) 100%);
+      color: var(--text-main);
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      margin: 0;
+      min-height: 100vh;
+    }
+    .container {
+      padding: 20px;
+      background: rgba(245,236,220,0.85);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      max-width: 1100px;
+      margin: 60px auto 30px auto;
+      border: 2px solid var(--coffee-brown-solid);
+    }
+    h1 {
+      font-size: 3.5rem;
+      background: linear-gradient(90deg, #c0c0c0, #9e9e9e, #d3d3d3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 4s infinite linear;
+      background-size: 1000px 100%;
+    }
+    h2, h3 {
+      color: var(--coffee-brown-solid);
+      margin: 15px 0;
+      letter-spacing: 1px;
+    }
+    a.instagram-link, .wishlist-btn {
+      display: inline-block;
+      margin-top: 15px;
+      color: var(--coffee-brown-solid);
+      text-decoration: none;
+      font-size: 1.1rem;
+      border: 1.5px solid var(--coffee-brown-solid);
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      background: none;
+      cursor: pointer;
+      background: var(--cream);
+      font-weight: 600;
+    }
+    a.instagram-link:hover, .wishlist-btn:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background-color: rgba(255, 215, 0, 0.08);
+    }
+    .wishlist-btn.active { color: var(--accent); border-color: var(--accent); }
+    @keyframes shimmer { 0% { background-position: -500px 0; } 100% { background-position: 500px 0; } }
+    /* Marquee */
+    .marquee {
+      width: 100%;
+      overflow: hidden;
+      background: var(--coffee-brown-solid);
+      color: var(--cream-solid);
+      font-size: 1.2rem;
+      white-space: nowrap;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      position: fixed;
+      z-index: 1000;
+    }
+    .marquee p {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll 10s linear infinite;
+    }
+    @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+    .marquee-top { top: 0; }
+    .marquee-bottom { bottom: 0; }
+    /* Filters */
+    .filters {
+      margin: 30px 0 10px 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .filters label {
+      font-size: 1rem;
+      color: var(--coffee-brown-solid);
+      font-weight: 600;
+    }
+    .filters select, .filters input[type="range"], .filters input[type="checkbox"] {
+      margin-left: 8px;
+      border-radius: 5px;
+      border: 1.5px solid var(--coffee-brown-solid);
+      background: var(--cream);
+      color: var(--text-main);
+      padding: 4px 8px;
+      font-family: 'Orbitron', sans-serif;
+    }
+    /* Product Grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 32px;
+      margin: 30px 0;
+    }
+    .product-item {
+      background: var(--cream);
+      border-radius: 14px;
+      padding: 20px 12px 22px 12px;
+      box-shadow: 0 2px 12px rgba(111,78,55,0.13);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      border: 2px solid var(--coffee-brown-solid);
+      transition: box-shadow 0.2s, border 0.2s;
+    }
+    .product-item:hover {
+      box-shadow: 0 6px 24px rgba(111,78,55,0.18);
+      border-color: var(--accent);
+    }
+    .product-item img {
+      max-width: 100%;
+      width: 180px;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      background: var(--cream);
+      border: 2px solid var(--coffee-brown-solid);
+      box-shadow: 0 2px 8px rgba(111,78,55,0.10);
+      transition: border 0.2s;
+    }
+    .product-item img:focus {
+      outline: 2px solid var(--accent);
+    }
+    .price {
+      color: var(--accent);
+      font-size: 1.2rem;
+      margin: 10px 0;
+      font-weight: bold;
+    }
+    .slider {
+      position: relative;
+      width: 180px;
+      margin-bottom: 12px;
+    }
+    .slider img {
+      width: 180px;
+      height: auto;
+      border-radius: 10px;
+    }
+    .prev-btn, .next-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--coffee-brown-solid);
+      color: var(--cream-solid);
+      border: none;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      opacity: 0.7;
+      font-size: 1.1rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .prev-btn { left: 0; }
+    .next-btn { right: 0; }
+    .prev-btn:hover, .next-btn:hover { opacity: 1; background: var(--accent); color: var(--text-main);}
+    .wishlist-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+    }
+    /* Modal */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.7);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-bg.active { display: flex; }
+    .modal-content {
+      background: var(--cream);
+      border-radius: 12px;
+      padding: 30px 20px;
+      max-width: 90vw;
+      width: 400px;
+      color: var(--text-main);
+      text-align: center;
+      position: relative;
+      box-shadow: 0 8px 32px rgba(111,78,55,0.18);
+      border: 2px solid var(--coffee-brown-solid);
+    }
+    .modal-content img { width: 90%; border-radius: 10px; margin-bottom: 15px; }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 18px;
+      background: none;
+      border: none;
+      color: var(--coffee-brown-solid);
+      font-size: 2rem;
+      cursor: pointer;
+    }
+    /* Reviews */
+    .reviews { margin-top: 10px; font-size: 0.95rem; color: var(--coffee-brown-solid); }
+    .review { margin-bottom: 8px; }
+    /* Newsletter */
+    .newsletter {
+      margin: 40px auto 20px auto;
+      max-width: 400px;
+      background: var(--cream);
+      border-radius: 10px;
+      padding: 20px;
+      border: 2px solid var(--coffee-brown-solid);
+      box-shadow: 0 2px 8px rgba(111,78,55,0.10);
+    }
+    .newsletter input[type="email"] {
+      padding: 8px;
+      border-radius: 5px;
+      border: 1.5px solid var(--coffee-brown-solid);
+      width: 65%;
+      margin-right: 10px;
+      background: var(--cream);
+      color: var(--text-main);
+    }
+    .newsletter button {
+      padding: 8px 18px;
+      border-radius: 5px;
+      border: none;
+      background: var(--accent);
+      color: var(--text-main);
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .newsletter button:hover { background: var(--accent-dark); }
+    /* Scroll to top */
+    #scrollTopBtn {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      right: 30px;
+      z-index: 3000;
+      background: var(--accent);
+      color: var(--text-main);
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 2rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(111,78,55,0.18);
+      transition: background 0.2s;
+    }
+    #scrollTopBtn:hover { background: var(--accent-dark); }
+    /* Video Section */
+    .video-section {
+      margin: 40px auto 30px auto;
+      background: var(--coffee-brown);
+      border-radius: 12px;
+      padding: 24px 10px 18px 10px;
+      max-width: 700px;
+      box-shadow: 0 2px 12px rgba(111,78,55,0.18);
+      border: 2px solid var(--coffee-brown-solid);
+    }
+    .video-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    /* Chatbot Styles */
+    #chatbotBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--accent);
+      color: var(--text-main);
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(111,78,55,0.18);
+      cursor: pointer;
+      z-index: 4000;
+      transition: background 0.2s;
+    }
+    #chatbotBtn:hover { background: var(--accent-dark); }
+    #chatbotWindow {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      width: 320px;
+      max-width: 95vw;
+      background: var(--cream);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(111,78,55,0.18);
+      z-index: 4001;
+      overflow: hidden;
+      border: 2px solid var(--coffee-brown-solid);
+    }
+    #chatbotHeader {
+      background: var(--accent);
+      color: var(--text-main);
+      padding: 12px 16px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #chatbotClose {
+      cursor: pointer;
+      font-size: 1.3rem;
+    }
+    #chatbotMessages {
+      padding: 14px 12px;
+      height: 180px;
+      overflow-y: auto;
+      background: var(--cream);
+      color: var(--coffee-brown-solid);
+      font-size: 1rem;
+    }
+    #chatbotMessages .bot { color: var(--accent); margin-bottom: 8px; }
+    #chatbotMessages .user { color: var(--coffee-brown-solid); text-align: right; margin-bottom: 8px; }
+    #chatbotForm {
+      display: flex;
+      border-top: 1px solid var(--coffee-brown-solid);
+      background: var(--cream);
+    }
+    #chatbotInput {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      background: var(--cream);
+      color: var(--text-main);
+      border-radius: 0 0 0 12px;
+      outline: none;
+      font-family: 'Orbitron', sans-serif;
+    }
+    #chatbotForm button {
+      background: var(--accent);
+      color: var(--text-main);
+      border: none;
+      padding: 0 16px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 0 0 12px 0;
+      transition: background 0.2s;
+    }
+    #chatbotForm button:hover { background: var(--accent-dark);}
+    @media (max-width: 900px) {
+      .container { padding: 8px; }
+      .product-grid { gap: 16px; }
+      .video-section { padding: 10px 2vw; }
+      .newsletter { padding: 10px 2vw; }
+    }
+    @media (max-width: 600px) {
+      .modal-content { width: 95vw; padding: 10px 2vw; }
+      .newsletter input[type="email"] { width: 55%; }
+      .video-section { padding: 10px 2vw; }
+      #chatbotWindow { width: 98vw; right: 1vw; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Top Marquee -->
+<div class="marquee marquee-top">
+  <p>Welcome to Rich Society | We are open now | Style starts here!</p>
+</div>
+
+<div class="container">
+  <h2>RICH SOCIETY</h2>
+  <h3>Style starts here. Place your order today</h3>
+
+  <!-- Interactive Video Overview Section -->
+  <section class="video-section">
+    <h3 style="color:#ffd700;">Interactive Product Overview</h3>
+    <div class="video-wrapper">
+      <video id="brandVideo" controls poster="video-poster.jpg" style="border-radius:12px; width:100%; max-width:600px; box-shadow:0 4px 24px rgba(0,0,0,0.3);">
+        <source src="h.mov" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <p style="margin-top:10px; color:#bbb;">Watch our story and see the collection in action!</p>
+  </section>
+
+  <!-- Filters -->
+  <div class="filters">
+    <label>
+      Price:
+      <select id="priceFilter">
+        <option value="all">All</option>
+        <option value="under30">Under $30</option>
+        <option value="30to35">$30 - $35</option>
+        <option value="above35">Above $35</option>
+      </select>
+    </label>
+    <label>
+      Favorites Only:
+      <input type="checkbox" id="favFilter">
+    </label>
+  </div>
+
+  <!-- Product Grid -->
+  <div class="product-grid" id="productGrid">
+    <!-- Products will be rendered here by JS -->
+  </div>
+
+  <h3>We are open now</h3>
+  <a class="instagram-link" href="https://www.instagram.com/p/DKZNwhXNlfI/?img_index=1&igsh=MWJsMGp3aWdleHhlcg==" target="_blank">
+    View Products
+  </a>
+</div>
+
+<!-- Newsletter Signup -->
+<div class="newsletter">
+  <h3>Subscribe to our Newsletter</h3>
+  <form id="newsletterForm">
+    <input type="email" id="newsletterEmail" placeholder="Your email" required>
+    <button type="submit">Subscribe</button>
+  </form>
+  <div id="newsletterMsg" style="margin-top:10px;"></div>
+</div>
+
+<!-- Bottom Marquee -->
+<div class="marquee marquee-bottom">
+  <p>Thank you for visiting | Follow us on Instagram | Keep shopping for the best style!</p>
+</div>
+
+<!-- Quick View Modal -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal-content" id="modalContent">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <img id="modalImg" src="" alt="Product Image">
+    <div class="price" id="modalPrice"></div>
+    <div id="modalDesc"></div>
+    <div class="reviews" id="modalReviews"></div>
+    <a class="instagram-link" id="modalBuy" href="#" target="_blank">Buy Now</a>
+  </div>
+</div>
+
+<!-- Scroll to Top Button -->
+<button id="scrollTopBtn">&#8679;</button>
+
+<!-- Chatbot Floating Button and Window -->
+<div id="chatbotBtn" title="Chat with us!">💬</div>
+<div id="chatbotWindow">
+  <div id="chatbotHeader">Rich Society Assistant <span id="chatbotClose">&times;</span></div>
+  <div id="chatbotMessages"></div>
+  <form id="chatbotForm">
+    <input type="text" id="chatbotInput" placeholder="Type your question..." autocomplete="off" required>
+    <button type="submit">Send</button>
+  </form>
+</div>
+
+<script>
+// Product Data
+const products = [
+  {
+    name: "Classic Tee",
+    images: ["1.jpg","1b.jpg","1c.jpg"],
+    price: 29.99,
+    desc: "Premium cotton tee with Rich Society logo.",
+    buy: "https://www.instagram.com/p/DKZNwhXNlfI/?img_index=1&igsh=MWJsMGp3aWdleHhlcg==",
+    reviews: [
+      { user: "Alex", text: "Super comfy and stylish!" },
+      { user: "Sam", text: "Love the quality and fit." }
+    ],
+    id: "classic-tee"
+  },
+  {
+    name: "Urban Hoodie",
+    images: ["2.jpg","2b.jpg"],
+    price: 34.99,
+    desc: "Warm hoodie for all seasons, urban style.",
+    buy: "https://www.instagram.com/p/DKZNwhXNlfI/?img_index=1&igsh=MWJsMGp3aWdleHhlcg==",
+    reviews: [
+      { user: "Jamie", text: "My new favorite hoodie!" }
+    ],
+    id: "urban-hoodie"
+  },
+  {
+    name: "Signature Cap",
+    images: ["3.JPG","3b.jpg"],
+    price: 27.99,
+    desc: "Adjustable cap with signature embroidery.",
+    buy: "https://www.instagram.com/p/DKZNwhXNlfI/?img_index=1&igsh=MWJsMGp3aWdleHhlcg==",
+    reviews: [
+      { user: "Taylor", text: "Looks great with any outfit." }
+    ],
+    id: "signature-cap"
+  },
+  {
+    name: "Minimalist Tote",
+    images: ["4.jpg"],
+    price: 19.99,
+    desc: "Eco-friendly tote bag for everyday use.",
+    buy: "https://www.instagram.com/p/DKZNwhXNlfI/?img_index=1&igsh=MWJsMGp3aWdleHhlcg==",
+    reviews: [
+      { user: "Jordan", text: "Perfect for shopping!" }
+    ],
+    id: "minimalist-tote"
+  },
+  {
+    name: "Street Socks",
+    images: ["5.jpg"],
+    price: 9.99,
+    desc: "Comfortable socks with street style.",
+    buy: "https://www.instagram.com/p/DKZNwhXNlfI/?img_index=1&igsh=MWJsMGp3aWdleHhlcg==",
+    reviews: [
+      { user: "Morgan", text: "Soft and cool design." }
+    ],
+    id: "street-socks"
+  },
+  {
+    name: "Logo Shorts",
+    images: ["6.jpg"],
+    price: 24.99,
+    desc: "Breathable shorts with logo print.",
+    buy: "https://www.instagram.com/p/DKZNwhXNlfI/?img_index=1&igsh=MWJsMGp3aWdleHhlcg==",
+    reviews: [
+      { user: "Casey", text: "Great for summer!" }
+    ],
+    id: "logo-shorts"
+  },
+  {
+    name: "Varsity Jacket",
+    images: ["7.jpg"],
+    price: 59.99,
+    desc: "Classic varsity jacket for a bold look.",
+    buy: "https://www.instagram.com/p/DKZNwhXNlfI/?img_index=1&igsh=MWJsMGp3aWdleHhlcg==",
+    reviews: [
+      { user: "Riley", text: "Feels premium and fits well." }
+    ],
+    id: "varsity-jacket"
+  }
+];
+
+// Wishlist (Favorites) using localStorage
+function getWishlist() {
+  return JSON.parse(localStorage.getItem('wishlist') || '[]');
+}
+function setWishlist(arr) {
+  localStorage.setItem('wishlist', JSON.stringify(arr));
+}
+function toggleWishlist(id) {
+  let favs = getWishlist();
+  if (favs.includes(id)) {
+    favs = favs.filter(f => f !== id);
+  } else {
+    favs.push(id);
+  }
+  setWishlist(favs);
+  renderProducts();
+}
+
+// Render Products
+function renderProducts() {
+  const grid = document.getElementById('productGrid');
+  const priceFilter = document.getElementById('priceFilter').value;
+  const favOnly = document.getElementById('favFilter').checked;
+  const favs = getWishlist();
+  grid.innerHTML = '';
+  products.forEach(prod => {
+    // Filter logic
+    let show = true;
+    if (priceFilter === 'under30' && prod.price >= 30) show = false;
+    if (priceFilter === '30to35' && (prod.price < 30 || prod.price > 35)) show = false;
+    if (priceFilter === 'above35' && prod.price <= 35) show = false;
+    if (favOnly && !favs.includes(prod.id)) show = false;
+    if (!show) return;
+    // Product HTML
+    const hasSlider = prod.images.length > 1;
+    let sliderBtns = hasSlider ? `
+      <button class="prev-btn">&#8592;</button>
+      <button class="next-btn">&#8594;</button>
+    ` : '';
+    let wishlistActive = favs.includes(prod.id) ? 'active' : '';
+    grid.innerHTML += `
+      <div class="product-item" data-id="${prod.id}" data-images='${JSON.stringify(prod.images)}'>
+        <button class="wishlist-btn ${wishlistActive}" title="Add to Favorites">&#10084;</button>
+        <div class="slider">
+          <img src="${prod.images[0]}" alt="${prod.name}" tabindex="0">
+          ${sliderBtns}
+        </div>
+        <div class="price">$${prod.price.toFixed(2)}</div>
+        <div style="font-size:1.05rem; margin-bottom:8px;">${prod.name}</div>
+        <a class="instagram-link buy-now-btn" href="customize.html?product=${encodeURIComponent(prod.id)}">Buy Now</a>
+        <button class="instagram-link quick-view-btn" style="margin-top:10px;">Quick View</button>
+      </div>
+    `;
+  });
+  addProductEvents();
+}
+
+// Add events for slider, wishlist, and modal
+function addProductEvents() {
+  document.querySelectorAll('.product-item').forEach(function(item) {
+    const images = JSON.parse(item.getAttribute('data-images'));
+    let idx = 0;
+    const img = item.querySelector('img');
+    const prev = item.querySelector('.prev-btn');
+    const next = item.querySelector('.next-btn');
+    if (prev && next) {
+      prev.onclick = function(e) {
+        e.stopPropagation();
+        idx = (idx - 1 + images.length) % images.length;
+        img.src = images[idx];
+      };
+      next.onclick = function(e) {
+        e.stopPropagation();
+        idx = (idx + 1) % images.length;
+        img.src = images[idx];
+      };
+    }
+    // Quick View Modal
+    img.onclick = () => openModal(item.getAttribute('data-id'), idx);
+    img.onkeydown = (e) => { if (e.key === "Enter") openModal(item.getAttribute('data-id'), idx); };
+    item.querySelector('.quick-view-btn').onclick = () => openModal(item.getAttribute('data-id'), idx);
+    // Wishlist
+    item.querySelector('.wishlist-btn').onclick = (e) => {
+      e.stopPropagation();
+      toggleWishlist(item.getAttribute('data-id'));
+    };
+  });
+}
+
+// Modal logic
+function openModal(id, imgIdx=0) {
+  const prod = products.find(p => p.id === id);
+  if (!prod) return;
+  const modalBg = document.getElementById('modalBg');
+  const modalImg = document.getElementById('modalImg');
+  const modalPrice = document.getElementById('modalPrice');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalBuy = document.getElementById('modalBuy');
+  const modalReviews = document.getElementById('modalReviews');
+  let idx = imgIdx;
+  modalImg.src = prod.images[idx];
+  modalPrice.textContent = `$${prod.price.toFixed(2)}`;
+  modalDesc.textContent = prod.desc;
+  modalBuy.href = prod.buy;
+  // Reviews
+  modalReviews.innerHTML = '<b>Customer Reviews:</b><br>' + prod.reviews.map(r => `<div class="review"><b>${r.user}:</b> ${r.text}</div>`).join('');
+  // Image slider in modal
+  modalImg.onclick = () => {
+    idx = (idx + 1) % prod.images.length;
+    modalImg.src = prod.images[idx];
+  };
+  modalBg.classList.add('active');
+}
+document.getElementById('modalClose').onclick = () => document.getElementById('modalBg').classList.remove('active');
+document.getElementById('modalBg').onclick = (e) => { if (e.target.id === 'modalBg') document.getElementById('modalBg').classList.remove('active'); };
+
+// Filters
+document.getElementById('priceFilter').onchange = renderProducts;
+document.getElementById('favFilter').onchange = renderProducts;
+
+// Newsletter
+document.getElementById('newsletterForm').onsubmit = function(e) {
+  e.preventDefault();
+  const email = document.getElementById('newsletterEmail').value;
+  document.getElementById('newsletterMsg').textContent = "Thank you for subscribing!";
+  document.getElementById('newsletterForm').reset();
+  setTimeout(() => { document.getElementById('newsletterMsg').textContent = ""; }, 3000);
+};
+
+// Scroll to Top
+const scrollBtn = document.getElementById('scrollTopBtn');
+window.onscroll = function() {
+  scrollBtn.style.display = window.scrollY > 200 ? "block" : "none";
+};
+scrollBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+// --- Chatbot Logic ---
+const chatbotBtn = document.getElementById('chatbotBtn');
+const chatbotWindow = document.getElementById('chatbotWindow');
+const chatbotClose = document.getElementById('chatbotClose');
+const chatbotMessages = document.getElementById('chatbotMessages');
+const chatbotForm = document.getElementById('chatbotForm');
+const chatbotInput = document.getElementById('chatbotInput');
+
+chatbotBtn.onclick = () => {
+  chatbotWindow.style.display = 'flex';
+  chatbotBtn.style.display = 'none';
+  chatbotInput.focus();
+};
+chatbotClose.onclick = () => {
+  chatbotWindow.style.display = 'none';
+  chatbotBtn.style.display = 'flex';
+};
+function chatbotReply(msg) {
+  let response = "I'm here to help! For orders, click 'Buy Now' to customize your product. For more help, type 'contact'.";
+  if (/hi|hello|hey/i.test(msg)) response = "Hello! 👋 How can I assist you with your order today?";
+  if (/custom/i.test(msg)) response = "You can customize your product after clicking 'Buy Now'!";
+  if (/price|cost/i.test(msg)) response = "All prices are listed below each product. Need help choosing?";
+  if (/contact/i.test(msg)) response = "You can reach us on Instagram or email support@richsociety.com.";
+  if (/thank/i.test(msg)) response = "You're welcome! 😊";
+  chatbotMessages.innerHTML += `<div class="bot">${response}</div>`;
+  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}
+chatbotForm.onsubmit = function(e) {
+  e.preventDefault();
+  const msg = chatbotInput.value.trim();
+  if (!msg) return;
+  chatbotMessages.innerHTML += `<div class="user">${msg}</div>`;
+  chatbotInput.value = '';
+  setTimeout(() => chatbotReply(msg), 600);
+  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+};
+// Optional: greet on open
+chatbotBtn.addEventListener('click', () => {
+  chatbotMessages.innerHTML = `<div class="bot">Hi! Need help with your order or want to know more about our products?</div>`;
+});
+
+// Initial render
+renderProducts();
+</script>
+</body>
+</html>
